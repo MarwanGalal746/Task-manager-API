@@ -38,7 +38,7 @@ const userSchema = mongoose.Schema({
     age: {
         type: Number,
         default: 0,
-        validate(value) {
+        validate(value) {   
             if (value < 0) {
                 throw new Error('Age must be a postive number')
             }
@@ -67,16 +67,18 @@ userSchema.statics.findByCredentials = async (email, password) => {
         
         throw new Error('Unable to login')
     }
+    console.log(user.password)
     const isMatch = await bcrypt.compare(password, user.password)
     if(!isMatch){
         throw new Error('Unable to login')
     }
-    
+    console.log(user)
     return user
 }
 
 userSchema.pre('save' , async function (next) { 
     const user = this
+    console.log(user.password)
     if(user.isModified) {
         user.password = await bcrypt.hash(user.password,8)
     }
@@ -92,7 +94,7 @@ module.exports = User
 // const myFunction  = async () => {
 //     const pass = '00112233'
 //     const enc = await bcrypt.hash(pass, 8)
-//     const isMatch = await bcrypt.compare('pass', enc)
+//     const isMatch = await bcrypt.compare('00112233', enc)
 //     console.log(isMatch)
 // }
 
