@@ -3,6 +3,7 @@ const validator = require('validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Task = require('./task')
+const sharp = require('sharp')
 // mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
 //     useNewUrlParser: true,
 //     useCreateIndex: true
@@ -50,7 +51,9 @@ const userSchema = mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }], avatar : {
+        type : Buffer
+    }
 },{
     timestamps :true
 })
@@ -68,6 +71,7 @@ userSchema.methods.toJSON = function () {
     const obj = user.toObject()
     delete obj.password
     delete obj.tokens
+    delete obj.avatar
     return obj
 }
 
