@@ -5,12 +5,13 @@
   "main": "mongodb.js",
   "scripts": {
     "start": "node /src/index.js",
-    "dev": "nodemon /src/index.js"
+    "dev": "env-cmd -f /home/marwan/projects/Task-manager/config/dev.env nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.4.2",
     "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
@@ -21,6 +22,7 @@
     "validator": "^13.6.0"
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
     "nodemon": "^2.0.7"
   }
 }
